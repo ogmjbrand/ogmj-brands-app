@@ -7,12 +7,17 @@ import { PageHead } from "@/components/shell/PageHead";
 import { Button } from "@/components/ui/Button";
 import { Segmented } from "@/components/ui/Sheet";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { Parallax } from "@/components/ui/Parallax";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow } from "@/components/ui/Data";
 import { reveal, stagger, materialize, easeOgmj } from "@/lib/motion";
 import { ASSETS, type Asset } from "@/lib/data";
 
 type Filter = "all" | "Logo" | "Social" | "Card" | "Flyer";
+
+/* Deliberately irregular so neighbouring tiles never share a rate — a
+   repeating pattern would resolve into visible rows and defeat the point. */
+const PARALLAX_RATES = [-7, 4, -2, 7, -5, 2];
 
 /**
  * DESIGN STUDIO
@@ -102,7 +107,7 @@ export default function StudioPage() {
             ) : (
               /* CSS columns give real masonry without a layout library and
                  without JS measuring on every resize. */
-              <div className="columns-2 lg:columns-3 xl:columns-4 gap-3 [column-fill:balance]">
+              <div className="columns-2 lg:columns-3 xl:columns-4 gap-3 lg:gap-4 [column-fill:balance]">
                 <AnimatePresence mode="popLayout">
                   {generating && (
                     <motion.div
@@ -145,9 +150,18 @@ export default function StudioPage() {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.55, ease: easeOgmj, delay: Math.min(i * 0.045, 0.3) }}
                       whileTap={{ scale: 0.985 }}
-                      className="mb-3 break-inside-avoid"
+                      className="mb-5 break-inside-avoid"
                     >
-                      <AssetTile asset={a} />
+                      {/* Each tile drifts at its own rate as the gallery
+                          passes, so the grid reads as a cluster with depth
+                          rather than a slab sliding by. Amplitude is kept at
+                          ±7px: the total possible convergence between two
+                          tiles stacked in one column is 14px against a 20px
+                          gap, so they can never touch, and the effect stays
+                          below the threshold that makes text hard to track. */}
+                      <Parallax rate={PARALLAX_RATES[i % PARALLAX_RATES.length]}>
+                        <AssetTile asset={a} />
+                      </Parallax>
                     </motion.div>
                   ))}
                 </AnimatePresence>

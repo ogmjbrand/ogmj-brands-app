@@ -296,6 +296,27 @@
   }
 }
 
+/* Marquee: the track is duplicated, so translating exactly -50% lands the
+   copy precisely where the original began — a seamless loop with no visible
+   boundary. `linear` matters: any easing would make the drift visibly speed
+   up and slow down once per cycle, which is what makes cheap marquees read
+   as cheap. */
+@keyframes ogmj-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@utility ogmj-marquee {
+  animation-name: ogmj-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
 @keyframes ogmj-drift {
   0%,
   100% {
@@ -437,6 +458,10 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+  .ogmj-marquee {
+    animation: none !important;
+    transform: none !important;
   }
   .energy-flow {
     animation: none !important;

@@ -190,6 +190,35 @@ export const pressableCard = {
 } as const;
 
 /* ------------------------------------------------------------------ */
+/* AMBIENT — content that moves with no user input at all.             */
+/*                                                                     */
+/* This is the most dangerous category in the system, so it has the    */
+/* tightest rules. Two techniques live here, both adapted from a       */
+/* luxury-hospitality reference:                                       */
+/*                                                                     */
+/*   MARQUEE  (components/ui/Marquee) — a rail drifting sideways.      */
+/*     Permitted only for content that is non-interactive AND that     */
+/*     nobody needs to read item by item. It states breadth. A moving  */
+/*     tap target is a usability failure; a moving fact is worse.      */
+/*                                                                     */
+/*   PARALLAX (components/ui/Parallax) — elements in one section       */
+/*     travelling at different rates as it crosses the viewport.       */
+/*     Amplitude stays in the low tens of pixels and is spring-damped; */
+/*     large or raw-scroll-bound parallax reads as cheap and makes     */
+/*     some people ill.                                                */
+/*                                                                     */
+/* Both stop completely under reduced motion. Neither ever carries     */
+/* information, which is what makes stopping them free.                */
+/* ------------------------------------------------------------------ */
+
+/** One full marquee cycle, in seconds. Slow enough to read as drift. */
+export const MARQUEE_SLOW = 52;
+export const MARQUEE_BASE = 46;
+
+/** Parallax travel ceiling. Nothing in OGMJ may exceed this. */
+export const PARALLAX_MAX_PX = 8;
+
+/* ------------------------------------------------------------------ */
 /* Reduced motion: we strip transform + blur but KEEP opacity, so      */
 /* state changes remain perceivable. Motion reduces; it never vanishes.*/
 /* ------------------------------------------------------------------ */

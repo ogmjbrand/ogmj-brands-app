@@ -10,8 +10,9 @@ import { Journey } from "@/components/modules/Journey";
 import { Eyebrow } from "@/components/ui/Data";
 import { Icon } from "@/components/ui/Icon";
 import { EnergyRule } from "@/components/ui/Energy";
+import { Marquee, RailItem } from "@/components/ui/Marquee";
 import { reveal, stagger } from "@/lib/motion";
-import { greeting, BRAND } from "@/lib/data";
+import { greeting, BRAND, CONNECTED } from "@/lib/data";
 
 /**
  * HOME — the command centre.
@@ -108,6 +109,44 @@ export default function Home() {
 
         {/* ---------------- JOURNEY ---------------- */}
         <Journey />
+
+        {/* ---------------- CONNECTED ----------------
+            A drifting rail of everything wired into the business. It is the
+            only place in OGMJ where content moves of its own accord, and it
+            earns that because nothing in it is interactive and nothing in it
+            needs to be read in particular — the message IS the breadth,
+            which is exactly the claim the product makes. Pauses on hover,
+            holds still under reduced motion. */}
+        <motion.section
+          variants={stagger(0.06)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="mt-12 lg:mt-16"
+          aria-label="Connected services"
+        >
+          <motion.div variants={reveal} className="gutter flex items-baseline justify-between gap-4 mb-4">
+            <Eyebrow>Connected</Eyebrow>
+            <span className="eyebrow text-[#7c8683]">{CONNECTED.length} live</span>
+          </motion.div>
+
+          <motion.div variants={reveal}>
+            <Marquee
+              label="Services connected to your business"
+              seconds={46}
+              items={CONNECTED.map((c) => (
+                <RailItem key={c.name} accent={c.accent}>
+                  <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
+                  {c.name}
+                </RailItem>
+              ))}
+            />
+          </motion.div>
+
+          <motion.p variants={reveal} className="gutter mt-4 text-[12px] leading-[1.6] text-[#8b9491] max-w-[46ch]">
+            Every lead, sale and post above flows through these. Nothing needs exporting between them.
+          </motion.p>
+        </motion.section>
 
         {/* ---------------- ASK ----------------
             The command centre is never more than one tap away, but this

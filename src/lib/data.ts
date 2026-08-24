@@ -414,6 +414,47 @@ export const GEN_OUTPUTS = [
   { id: "o6", module: "analytics" as ModuleKey, title: "Measurement", detail: "Goals, funnels and attribution wired" },
 ];
 
+/**
+ * The rail on the dashboard. Display only — it says "your business is wired
+ * into all of this", which is a breadth claim, not a list anyone needs to
+ * read item by item. That is precisely the content a marquee is for.
+ */
+export const CONNECTED = [
+  { name: "Instagram", accent: "em" as const },
+  { name: "TikTok", accent: "em" as const },
+  { name: "Meta Ads", accent: "em" as const },
+  { name: "WhatsApp Business", accent: "em" as const },
+  { name: "Paystack", accent: "gold" as const },
+  { name: "Shopify", accent: "em" as const },
+  { name: "Mailchimp", accent: "em" as const },
+  { name: "Google Analytics", accent: "em" as const },
+  { name: "Flutterwave", accent: "gold" as const },
+  { name: "LinkedIn", accent: "em" as const },
+];
+
+/**
+ * The capabilities rails on Services. Same rule: breadth, not navigation.
+ * Two disjoint sets, because two rails carrying the same words — even
+ * reversed — reads as a rendering bug rather than a deliberate pair.
+ */
+export const CAPABILITIES_CREATIVE = [
+  "Brand strategy",
+  "Naming",
+  "Visual identity",
+  "Packaging",
+  "Motion design",
+  "Photography direction",
+];
+
+export const CAPABILITIES_BUILD = [
+  "Web development",
+  "Paid media",
+  "Email systems",
+  "Business registration",
+  "Trademark filing",
+  "Growth consulting",
+];
+
 export const SUGGESTIONS = [
   "Build my luxury skincare brand",
   "Create a launch campaign for my fashion label",

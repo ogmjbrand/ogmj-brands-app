@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow } from "@/components/ui/Data";
 import { EnergyRule } from "@/components/ui/Energy";
+import { Marquee, RailItem } from "@/components/ui/Marquee";
 import { reveal, stagger, pressableCard } from "@/lib/motion";
-import { SERVICES } from "@/lib/data";
+import { SERVICES, CAPABILITIES_CREATIVE, CAPABILITIES_BUILD } from "@/lib/data";
 
 /**
  * SERVICES
@@ -66,6 +67,41 @@ export default function ServicesPage() {
               </div>
             </motion.section>
           )}
+
+          <div className="gutter my-8">
+            <EnergyRule />
+          </div>
+
+          {/* ---- CAPABILITIES RAIL ----
+              Twelve disciplines is a breadth claim, and reading twelve pills
+              one by one is not how anyone consumes a breadth claim. So they
+              drift. The tappable catalogue directly below is where the real
+              choices live — nothing in the rail is a target. */}
+          <motion.section variants={reveal} aria-label="Capabilities">
+            <div className="gutter mb-4">
+              <Eyebrow tone="gold">Disciplines in-house</Eyebrow>
+            </div>
+            <Marquee
+              label="Creative disciplines the OGMJ team covers"
+              seconds={52}
+              items={CAPABILITIES_CREATIVE.map((c) => (
+                <RailItem key={c} accent="gold">
+                  {c}
+                </RailItem>
+              ))}
+            />
+            <Marquee
+              label="Build and growth disciplines the OGMJ team covers"
+              seconds={64}
+              direction="right"
+              className="mt-2.5"
+              items={CAPABILITIES_BUILD.map((c) => (
+                <RailItem key={c} accent="quiet">
+                  {c}
+                </RailItem>
+              ))}
+            />
+          </motion.section>
 
           <div className="gutter my-8">
             <EnergyRule />

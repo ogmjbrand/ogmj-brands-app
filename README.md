@@ -54,6 +54,35 @@ cannot be assigned one of them does not ship:
 | What's happening? | `materialize` / `phase` — AI resolving out of the dark |
 | How are these related? | **OGMJ Energy** — light travelling between connected things |
 | What changed? | counters counting, lines drawing, bars growing |
+| (nothing — ambient) | `Marquee` / `Parallax`, under the strict rules below |
+
+#### Ambient motion, and why it is fenced off
+
+Two techniques were adapted from a luxury-hospitality reference: a rail whose
+contents **drift sideways** continuously, and a gallery whose elements
+**travel at different rates** as the section crosses the viewport. Both are
+genuinely good — drift states breadth without demanding a scroll, and
+differential travel gives a composition depth.
+
+Both are also the two easiest ways to make a product feel cheap, so they are
+the only motion in OGMJ with hard rules attached:
+
+- A marquee may contain **nothing interactive**. A moving tap target is a
+  usability failure — the user aims and the thing has left.
+- A marquee may contain **nothing anyone needs to read**. It states *"there
+  are many of these"*, never *"here is the one you want"*. It carries
+  connected channels and in-house disciplines; it will never carry a metric.
+- It **pauses on hover and on focus**, and its duplicated track is
+  `aria-hidden` so a screen reader hears the content once, not twice.
+- Parallax travel is capped at **8px** and spring-damped. Large amplitude
+  makes text hard to track mid-scroll and makes some people ill; binding
+  transform to raw scroll position stutters on a phone.
+- Both **stop completely** under reduced motion. Neither ever carries
+  information, which is exactly what makes stopping them free.
+
+What was deliberately *not* taken from the reference: its cream-and-gold
+hospitality palette, its layout, and its content. Motion technique
+transfers between products; a visual identity does not.
 
 ### 3. OGMJ Energy — the signature
 
@@ -138,6 +167,7 @@ src/
     globals.css        The design system: tokens, energy, surfaces, a11y
   components/
     ui/        Icon · Button · Energy · Data · Sheet · EmptyState
+               Marquee · Parallax  (ambient — see the rules above)
     shell/     AppShell · Nav · TopBar · PageHead
     modules/   Pulse · Insights · Journey · Hub
   lib/
