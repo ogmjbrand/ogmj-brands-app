@@ -1,9 +1,16 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
 import { OgmjMark, Icon } from "@/components/ui/Icon";
+import { Sheet } from "@/components/ui/Sheet";
+import { Button } from "@/components/ui/Button";
+import { Eyebrow, Ring } from "@/components/ui/Data";
+import { EnergyRule } from "@/components/ui/Energy";
 import { BRAND } from "@/lib/data";
+import { resetOnboarding } from "@/lib/firstRun";
 
 /**
  * The mobile top bar carries identity, not navigation — navigation lives
@@ -11,7 +18,16 @@ import { BRAND } from "@/lib/data";
  * content, not the chrome, owns the screen.
  */
 export function TopBar() {
+  const [account, setAccount] = useState(false);
+  const router = useRouter();
   const { scrollY } = useScroll();
+
+  const replayOnboarding = useCallback(() => {
+    resetOnboarding();
+    setAccount(false);
+    router.push("/onboarding");
+  }, [router]);
+
   const border = useTransform(scrollY, [0, 40], ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"]);
   const bg = useTransform(scrollY, [0, 40], ["rgba(5,5,5,0)", "rgba(6,8,7,0.85)"]);
   const blur = useTransform(scrollY, [0, 40], ["blur(0px)", "blur(18px)"]);
@@ -47,7 +63,9 @@ export function TopBar() {
             <Icon name="services" size={19} />
           </Link>
           <button
+            onClick={() => setAccount(true)}
             aria-label="Your account"
+            aria-haspopup="dialog"
             className="grid place-items-center h-11 w-11 rounded-full"
           >
             {/* The visual disc stays 36px for balance in the bar; the hit
@@ -60,6 +78,49 @@ export function TopBar() {
           </button>
         </div>
       </div>
+
+      {/* The avatar used to be a labelled control that did nothing — the one
+          thing this product is not allowed to ship. It now opens the account
+          surface, which is also the only route back to onboarding once the
+          first-run flag is set. */}
+      <Sheet
+        open={account}
+        onClose={() => setAccount(false)}
+        eyebrow="Account"
+        title="Milly Oyin"
+        footer={
+          <Button full size="lg" variant="outline" icon="spark" iconSide="left" onClick={replayOnboarding}>
+            Replay onboarding
+          </Button>
+        }
+      >
+        <div className="space-y-5">
+          <p className="text-[12.5px] text-[#8b9491]">millyoyin27@gmail.com</p>
+
+          <EnergyRule />
+
+          <div>
+            <Eyebrow>Active brand</Eyebrow>
+            <Link
+              href="/brand"
+              onClick={() => setAccount(false)}
+              className="mt-3 flex items-center gap-3.5 p-4 rounded-[var(--radius-md)] surface transition-colors duration-300 hover:border-[rgba(212,175,55,0.35)]"
+            >
+              <span className="h-2 w-2 rounded-full bg-[#d4af37] shadow-[0_0_9px_rgba(212,175,55,0.9)] shrink-0" />
+              <span className="min-w-0 flex-1">
+                <span className="block text-[14px] font-semibold text-[#f4f6f5]">{BRAND.name}</span>
+                <span className="block mt-1 text-[11.5px] text-[#8b9491]">{BRAND.category}</span>
+              </span>
+              <Ring value={BRAND.health} size={40} accent="gold" label="Brand health" />
+            </Link>
+          </div>
+
+          <p className="text-[12px] leading-[1.65] text-[#8b9491]">
+            Replaying onboarding re-runs the two setup questions and re-orders your modules around
+            the answers. Nothing in your business is deleted.
+          </p>
+        </div>
+      </Sheet>
     </motion.header>
   );
 }

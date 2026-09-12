@@ -9,7 +9,6 @@ import { Segmented } from "@/components/ui/Sheet";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Parallax } from "@/components/ui/Parallax";
 import { Icon } from "@/components/ui/Icon";
-import { Eyebrow } from "@/components/ui/Data";
 import { reveal, stagger, materialize, easeOgmj } from "@/lib/motion";
 import { ASSETS, type Asset } from "@/lib/data";
 

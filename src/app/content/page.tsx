@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow, Counter } from "@/components/ui/Data";
 import { EnergyRule } from "@/components/ui/Energy";
-import { reveal, stagger, easeOgmj } from "@/lib/motion";
+import { reveal, stagger } from "@/lib/motion";
 import { CONTENT, BRAND, type ContentPiece } from "@/lib/data";
 
 type Tab = "all" | "ready" | "drafts";

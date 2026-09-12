@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { EnergyOrb } from "@/components/ui/Energy";
 import { Button } from "@/components/ui/Button";
 

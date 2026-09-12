@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { TopBar } from "@/components/shell/TopBar";
+import { FirstRunGate } from "@/components/shell/FirstRunGate";
 import { Pulse } from "@/components/modules/Pulse";
 import { Insights } from "@/components/modules/Insights";
 import { Journey } from "@/components/modules/Journey";
@@ -52,7 +53,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <FirstRunGate>
       <TopBar />
 
       <div className="pb-nav">
@@ -192,6 +193,6 @@ export default function Home() {
           </motion.div>
         </motion.section>
       </div>
-    </>
+    </FirstRunGate>
   );
 }

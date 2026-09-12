@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { Eyebrow, Ring } from "@/components/ui/Data";
+import { Ring } from "@/components/ui/Data";
 import { EnergyRule } from "@/components/ui/Energy";
 import { PageHead } from "@/components/shell/PageHead";
 import { TopBar } from "@/components/shell/TopBar";

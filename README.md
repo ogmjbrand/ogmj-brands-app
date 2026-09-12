@@ -126,7 +126,17 @@ here is composed like real content — eyebrow, editorial line, reason,
 action — and the pitch is specific to the surface. Thursday's empty calendar
 day names the ₦340,000/month it is worth, because the dashboard measured it.
 
-### 8. Luxury does not mean inaccessible
+### 8. First run is part of the product
+
+Opening OGMJ for the first time sends you to onboarding, not into someone
+else's finished dashboard. The check fails **open**: if `localStorage` throws
+— private browsing, blocked site data, an embedded webview — you are treated
+as already onboarded and let into your business. Guessing wrong that way
+costs one skipped intro; guessing wrong the other way locks someone outside
+their own product with no way back. The account sheet (the avatar, top right)
+replays onboarding at any time.
+
+### 9. Luxury does not mean inaccessible
 
 Verified, not asserted:
 
@@ -143,7 +153,7 @@ Verified, not asserted:
   server than on the client.
 - **Zoom is never disabled.**
 
-### 9. Nothing looks like a component library
+### 10. Nothing looks like a component library
 
 The icon set, the mark, the charts, the sheet, the segmented control, the
 buttons and the empty states are all drawn in this repo. Surfaces are
@@ -168,11 +178,12 @@ src/
   components/
     ui/        Icon · Button · Energy · Data · Sheet · EmptyState
                Marquee · Parallax  (ambient — see the rules above)
-    shell/     AppShell · Nav · TopBar · PageHead
+    shell/     AppShell · Nav · TopBar · PageHead · FirstRunGate
     modules/   Pulse · Insights · Journey · Hub
   lib/
-    motion.ts  The OGMJ motion system
-    data.ts    One connected business, flowing across every module
+    motion.ts   The OGMJ motion system
+    firstRun.ts First-run detection (fails open by design)
+    data.ts     One connected business, flowing across every module
 ```
 
 The demo business (Aurelia, a luxury skincare house) is deliberately

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "motion/react";
 import { sheet, scrim, springPanel } from "@/lib/motion";
 
@@ -34,6 +35,26 @@ export function Sheet({
   const panel = useRef<HTMLDivElement>(null);
   const restoreTo = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
+
+  /**
+   * The sheet is portalled to <body>, and that is not a stylistic choice.
+   *
+   * `position: fixed` is resolved against the nearest ancestor that
+   * establishes a containing block — which includes any ancestor carrying a
+   * transform, a filter, or a backdrop-filter. The mobile top bar animates
+   * `backdrop-filter` from `blur(0px)`, and `blur(0px)` is emphatically not
+   * `none`: it creates a containing block permanently. A sheet rendered
+   * inside that header anchored itself to a 64px-tall bar and hung off the
+   * top of the screen.
+   *
+   * Relocating that one call site would have fixed that one bug and left the
+   * trap armed for the next person. Portalling to <body> makes every sheet
+   * immune to whatever it happens to be nested inside.
+   *
+   * Mounted-gated so the server and the first client render agree.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   /* Scroll lock without layout shift. */
   useEffect(() => {
@@ -105,7 +126,7 @@ export function Sheet({
     [onClose],
   );
 
-  return (
+  const content = (
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[var(--z-sheet)] flex items-end lg:items-stretch lg:justify-end">
@@ -187,6 +208,9 @@ export function Sheet({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+  return createPortal(content, document.body);
 }
 
 /**

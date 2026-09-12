@@ -9,6 +9,7 @@ import { EnergyOrb, EnergyRule } from "@/components/ui/Energy";
 import { Button } from "@/components/ui/Button";
 import { reveal, stagger, easeOgmj, springPanel, springTap } from "@/lib/motion";
 import { BUSINESS_TYPES, AMBITIONS } from "@/lib/data";
+import { markOnboarded } from "@/lib/firstRun";
 
 /**
  * ONBOARDING
@@ -46,6 +47,10 @@ export default function Onboarding() {
      watching their workspace assemble would break the moment. */
   useEffect(() => {
     if (step !== 3) return;
+    /* Recorded as the final scene begins, not after the redirect lands: if
+       someone closes the tab mid-animation they have still been through
+       onboarding, and showing it to them again would be a bug. */
+    markOnboarded();
     timer.current = window.setTimeout(() => router.push("/"), reduce ? 900 : 3600);
     return () => {
       if (timer.current) clearTimeout(timer.current);
