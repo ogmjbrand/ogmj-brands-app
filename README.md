@@ -10,6 +10,9 @@ behind one login.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
+
+npm run lint     # eslint
+npm test         # production build + the full Playwright suite
 ```
 
 Next.js 15 · React 19 · TypeScript · Tailwind v4 · Motion.
@@ -180,6 +183,7 @@ src/
                Marquee · Parallax  (ambient — see the rules above)
     shell/     AppShell · Nav · TopBar · PageHead · FirstRunGate
     modules/   Pulse · Insights · Journey · Hub
+  tests/        The rules above, enforced
   lib/
     motion.ts   The OGMJ motion system
     firstRun.ts First-run detection (fails open by design)
@@ -193,6 +197,39 @@ attribution trail, and the gap the dashboard flags is genuinely empty in the
 calendar.
 
 ---
+
+## The rules are enforced, not documented
+
+Everything claimed above is a test in `tests/`. A design system whose rules
+live only in comments is a style guide, and style guides rot.
+
+| Spec | What it refuses to let regress |
+| --- | --- |
+| `smoke` | every route renders with zero console or page errors — this is what catches hydration mismatches, which is how the reduced-motion bug and the build-time-frozen greeting were both found |
+| `responsive` | no horizontal page overflow at 390 / 430 / 768 / 1024 / 1440 / 2200, **scrolled to the bottom** — a `w-max` marquee track and parallax transforms only reach their extremes once in view |
+| `accessibility` | all four text steps clear 4.5:1 against the *lightest* surface; 44px touch floor; every control has an accessible name; direction never carried by colour alone; skip link first; focus ring on every control |
+| `motion` | the rail drifts, pauses on hover, contains nothing interactive, is heard once not twice, and stops dead under reduced motion with its content intact; parallax stays inside 8px, uses irregular rates, and never collides |
+| `first-run` | first visit reaches onboarding; completion survives a reload; **blocked storage fails open**; the account sheet replays it |
+| `sheets` | every sheet anchors to the viewport (the `backdrop-filter` containing-block trap); focus is trapped and returned; scroll is locked and given back |
+| `routes` | every route on disk is **tracked by git**, every advertised route has a page, and no navigation tab leads to a 404 |
+
+Tests run against a production build, because static prerendering, hydration
+and compositor-driven animation all behave differently under the dev server's
+HMR runtime. `PW_PORT` pins the run to a port, so a server left over from an
+earlier run cannot serve a stale build and produce a convincing false result.
+
+The `routes` spec exists because of a real failure worth recording: a bare
+`build` line in `.gitignore` matches a directory named `build` at *any*
+depth, so `src/app/build` — the Build hub, one of five primary navigation
+destinations — was silently never committed. Every check passed, because
+every check ran against a working directory that had the file. A fresh clone
+did not, and the tab led to a 404. The ignore patterns for build output are
+now anchored (`/.next`, `/out`), and one test compares the routes on disk
+against `git ls-files` so source can never leave the repository quietly
+again.
+
+`CHROMIUM_PATH` points the runner at a pre-installed browser where one exists;
+unset, Playwright uses its own after `npx playwright install chromium`.
 
 ## Review standard
 

@@ -1,7 +1,6 @@
 node_modules
-.next
-out
-build
+/.next
+/out
 .DS_Store
 *.pem
 npm-debug.log*
@@ -9,3 +8,6 @@ npm-debug.log*
 .vercel
 next-env.d.ts
 tsconfig.tsbuildinfo
+.playwright-report
+test-results
+playwright-report
