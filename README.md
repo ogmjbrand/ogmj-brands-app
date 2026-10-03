@@ -231,6 +231,12 @@ again.
 `CHROMIUM_PATH` points the runner at a pre-installed browser where one exists;
 unset, Playwright uses its own after `npx playwright install chromium`.
 
+CI (`.github/workflows/ci.yml`) runs lint, build and the full suite on every
+push. It checks out with full history on purpose: the `routes` spec compares
+the routes on disk against `git ls-files`, and that check is only meaningful
+against a real repository — which is the exact condition that exposed the
+missing route in the first place.
+
 ## Review standard
 
 No screen was considered finished until every answer was yes:
