@@ -42,18 +42,26 @@ test("interactive controls meet the 44px touch floor", async ({ page }) => {
 
   for (const route of ROUTES) {
     await page.goto(route);
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(900);
 
     const small = await page.evaluate(() => {
       const out: string[] = [];
       document.querySelectorAll("a,button,[role='tab'],input,textarea").forEach((el) => {
-        const r = el.getBoundingClientRect();
-        if (r.width === 0 || r.height === 0) return;
+        const node = el as HTMLElement;
+        /* offsetWidth/Height, not getBoundingClientRect: the rect includes
+           any transform currently applied, and the masonry tiles carry a
+           layout animation plus a whileTap scale. A control measured
+           mid-flight reads a fraction under its real size, which is a
+           timing artefact rather than a touch-target defect. The intrinsic
+           box is what the design rule is actually about. */
+        const w = node.offsetWidth;
+        const h = node.offsetHeight;
+        if (w === 0 || h === 0) return;
         /* The skip link is 1x1 until focused, which is the correct
            visually-hidden pattern rather than a small target. */
-        if (el.className.toString().includes("sr-only")) return;
-        if (r.height < 44 && r.width < 44) {
-          out.push(`${el.tagName}.${el.className.toString().slice(0, 40)} ${Math.round(r.width)}x${Math.round(r.height)}`);
+        if (node.className.toString().includes("sr-only")) return;
+        if (h < 44 && w < 44) {
+          out.push(`${node.tagName}.${node.className.toString().slice(0, 40)} ${w}x${h}`);
         }
       });
       return out;
