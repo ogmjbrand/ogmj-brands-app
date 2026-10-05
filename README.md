@@ -122,14 +122,39 @@ No chart ships without the sentence that says what it means. Every insight
 answers three questions in order — what happened, why (one tap away), and
 what to do — and the action is a real destination, not an acknowledgement.
 
-### 7. Empty states are the highest-intent moment in a product
+### 7. Every interaction has a finished state
+
+Saving, deleting and failing are the three that products usually leave
+unfinished, so each has a rule:
+
+- **Saving confirms by naming what happened** — "*The 40-label experiment*
+  scheduled for Thursday, 18:00", not "Saved". A toast is a receipt for an
+  action the user just took; anything they did not just do belongs on the
+  surface it concerns. An error toast does not auto-dismiss and carries the
+  retry, because dismissing a failure on a timer is how a product loses
+  someone's work quietly.
+- **Deleting states the consequence and is reversible.** The dialog names
+  what will be lost in the user's terms, puts the dangerous verb on the
+  button rather than on *OK*, and focuses *Keep it* so a stray Enter deletes
+  nothing. The undo then lives in the toast, because the moment someone
+  realises they deleted the wrong thing is the second *after* it disappears.
+  Undo restores position, not just existence.
+- **Failing keeps the user inside the product.** Without a boundary an
+  unhandled render falls through to Next's grey default page, which shatters
+  everything the rest of the product is carrying. The error surface says it
+  isn't their fault, says their business is intact — the fear a crash
+  actually creates — and offers a way forward. `global-error` imports
+  nothing from the design system: a boundary that depends on the thing that
+  just failed is not a boundary.
+
+### 8. Empty states are the highest-intent moment in a product
 
 "No projects yet" is a dead end dressed as information. Every empty state
 here is composed like real content — eyebrow, editorial line, reason,
 action — and the pitch is specific to the surface. Thursday's empty calendar
 day names the ₦340,000/month it is worth, because the dashboard measured it.
 
-### 8. First run is part of the product
+### 9. First run is part of the product
 
 Opening OGMJ for the first time sends you to onboarding, not into someone
 else's finished dashboard. The check fails **open**: if `localStorage` throws
@@ -139,7 +164,7 @@ costs one skipped intro; guessing wrong the other way locks someone outside
 their own product with no way back. The account sheet (the avatar, top right)
 replays onboarding at any time.
 
-### 9. Luxury does not mean inaccessible
+### 10. Luxury does not mean inaccessible
 
 Verified, not asserted:
 
@@ -156,7 +181,7 @@ Verified, not asserted:
   server than on the client.
 - **Zoom is never disabled.**
 
-### 10. Nothing looks like a component library
+### 11. Nothing looks like a component library
 
 The icon set, the mark, the charts, the sheet, the segmented control, the
 buttons and the empty states are all drawn in this repo. Surfaces are
@@ -180,6 +205,7 @@ src/
     globals.css        The design system: tokens, energy, surfaces, a11y
   components/
     ui/        Icon · Button · Energy · Data · Sheet · EmptyState
+               Toast · ConfirmDelete
                Marquee · Parallax  (ambient — see the rules above)
     shell/     AppShell · Nav · TopBar · PageHead · FirstRunGate
     modules/   Pulse · Insights · Journey · Hub
@@ -212,6 +238,7 @@ live only in comments is a style guide, and style guides rot.
 | `first-run` | first visit reaches onboarding; completion survives a reload; **blocked storage fails open**; the account sheet replays it |
 | `sheets` | every sheet anchors to the viewport (the `backdrop-filter` containing-block trap); focus is trapped and returned; scroll is locked and given back |
 | `routes` | every route on disk is **tracked by git**, every advertised route has a page, and no navigation tab leads to a 404 |
+| `states` | a save confirms by naming what happened and clears itself; a delete asks first, states the consequence, focuses *Keep it*, and is undoable back into its original position; both error boundaries exist and offer recovery |
 
 Tests run against a production build, because static prerendering, hydration
 and compositor-driven animation all behave differently under the dev server's

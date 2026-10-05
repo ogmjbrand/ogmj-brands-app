@@ -7,6 +7,7 @@ import { PageHead } from "@/components/shell/PageHead";
 import { Button } from "@/components/ui/Button";
 import { Segmented } from "@/components/ui/Sheet";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { useToast, ConfirmDelete } from "@/components/ui/Toast";
 import { Parallax } from "@/components/ui/Parallax";
 import { Icon } from "@/components/ui/Icon";
 import { reveal, stagger, materialize, easeOgmj } from "@/lib/motion";
@@ -33,8 +34,36 @@ export default function StudioPage() {
   const [filter, setFilter] = useState<Filter>("all");
   const [items, setItems] = useState<Asset[]>(ASSETS);
   const [generating, setGenerating] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState<Asset | null>(null);
   const timer = useRef<number | null>(null);
   const reduce = useReducedMotion();
+  const toast = useToast();
+
+  /**
+   * Delete is confirmed first and reversible after. The dialog states what
+   * will be lost; the toast then carries the undo, because the moment a
+   * person realises they deleted the wrong thing is the second after it
+   * disappears, not the second before.
+   */
+  const remove = useCallback(
+    (asset: Asset) => {
+      const index = items.findIndex((a) => a.id === asset.id);
+      setItems((prev) => prev.filter((a) => a.id !== asset.id));
+      toast.show(`“${asset.name}” deleted`, "info", {
+        label: "Undo",
+        onClick: () =>
+          setItems((prev) => {
+            if (prev.some((a) => a.id === asset.id)) return prev;
+            /* Restored to where it was, not appended to the end — an undo
+               that moves the item has not undone anything. */
+            const next = [...prev];
+            next.splice(Math.max(0, index), 0, asset);
+            return next;
+          }),
+      });
+    },
+    [items, toast],
+  );
 
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current);
@@ -159,7 +188,7 @@ export default function StudioPage() {
                           gap, so they can never touch, and the effect stays
                           below the threshold that makes text hard to track. */}
                       <Parallax rate={PARALLAX_RATES[i % PARALLAX_RATES.length]}>
-                        <AssetTile asset={a} />
+                        <AssetTile asset={a} onDelete={() => setPendingDelete(a)} />
                       </Parallax>
                     </motion.div>
                   ))}
@@ -177,6 +206,14 @@ export default function StudioPage() {
           )}
         </motion.div>
       </div>
+
+      <ConfirmDelete
+        open={!!pendingDelete}
+        onClose={() => setPendingDelete(null)}
+        onConfirm={() => pendingDelete && remove(pendingDelete)}
+        title={`Delete “${pendingDelete?.name}”?`}
+        consequence={`This removes the ${pendingDelete?.kind.toLowerCase()} from your library and from any post, page or campaign currently using it. You can undo this straight afterwards.`}
+      />
     </>
   );
 }
@@ -187,7 +224,7 @@ export default function StudioPage() {
  * split, a pattern. Six different pieces of design, because a studio whose
  * assets all look identical is not a studio.
  */
-function AssetTile({ asset }: { asset: Asset }) {
+function AssetTile({ asset, onDelete }: { asset: Asset; onDelete: () => void }) {
   const bone = asset.tone === "bone";
   const bg = bone
     ? "#EFE9DE"
@@ -198,7 +235,7 @@ function AssetTile({ asset }: { asset: Asset }) {
   const rule = bone ? "#0D0F0E" : "#D4AF37";
 
   return (
-    <button className="group block w-full text-left">
+    <div className="group block w-full text-left">
       <div
         className="relative rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-rule)] transition-all duration-300 group-hover:border-[rgba(212,175,55,0.4)]"
         style={{ aspectRatio: asset.ratio, background: bg }}
@@ -299,15 +336,38 @@ function AssetTile({ asset }: { asset: Asset }) {
 
         {/* Metadata reveals on hover/press rather than sitting on the art
             permanently — the asset is the point, the label is not. */}
-        <div className="absolute inset-x-0 bottom-0 p-2.5 bg-[linear-gradient(0deg,rgba(0,0,0,0.88),transparent)] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
-          <p className="text-[10.5px] font-medium text-white truncate">{asset.name}</p>
+        <div className="absolute inset-x-0 bottom-0 flex items-end gap-2 p-2.5 bg-[linear-gradient(0deg,rgba(0,0,0,0.88),transparent)] opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
+          <p className="min-w-0 flex-1 text-[10.5px] font-medium text-white truncate">{asset.name}</p>
         </div>
+
+        {/* Always present rather than hover-only: on a touch screen there is
+            no hover, and a control that only exists for mouse users is not a
+            control. 44px target, visually quiet until approached. */}
+        <button
+          onClick={onDelete}
+          aria-label={`Delete ${asset.name}`}
+          /* Tone-aware: a translucent white glyph on the cream artwork would
+             fail the 3:1 non-text contrast floor and be genuinely hard to
+             see. It rests quiet so six of them do not shout across the
+             gallery, and reaches full strength on hover or focus. */
+          className={`
+            absolute top-1 right-1 grid place-items-center h-11 w-11 rounded-[10px]
+            transition-colors duration-200
+            hover:bg-[rgba(0,0,0,0.5)] hover:text-[#f08a8a]
+            focus-visible:text-[#f08a8a]
+            ${bone ? "text-[rgba(13,15,14,0.5)]" : "text-[rgba(255,255,255,0.36)]"}
+          `}
+        >
+          <Icon name="close" size={14} strokeWidth={1.8} />
+        </button>
       </div>
 
-      <div className="mt-2 flex items-center justify-between gap-2">
-        <p className="text-[11.5px] text-[#a3adaa] truncate">{asset.name}</p>
-        <Icon name="chevron" size={12} className="text-[#7c8683] shrink-0" />
+      <div className="mt-2 flex items-center gap-1">
+        <p className="min-w-0 flex-1 text-[11.5px] text-[#a3adaa] truncate">{asset.name}</p>
+        <span className="shrink-0 grid place-items-center h-6 w-6 text-[#7c8683]">
+          <Icon name="chevron" size={12} />
+        </span>
       </div>
-    </button>
+    </div>
   );
 }

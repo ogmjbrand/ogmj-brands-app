@@ -9,6 +9,7 @@ import { Sheet } from "@/components/ui/Sheet";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow, Counter } from "@/components/ui/Data";
 import { EnergyRule } from "@/components/ui/Energy";
+import { useToast } from "@/components/ui/Toast";
 import { reveal, stagger, easeOgmj } from "@/lib/motion";
 import { LEADS, PIPELINE_STAGES, formatMoney, type Lead } from "@/lib/data";
 
@@ -27,6 +28,7 @@ import { LEADS, PIPELINE_STAGES, formatMoney, type Lead } from "@/lib/data";
  */
 export default function CrmPage() {
   const [open, setOpen] = useState<Lead | null>(null);
+  const toast = useToast();
 
   const byStage = useMemo(
     () =>
@@ -204,7 +206,16 @@ export default function CrmPage() {
             <Button variant="outline" size="lg" className="flex-1" onClick={() => setOpen(null)}>
               Log a note
             </Button>
-            <Button size="lg" className="flex-1" icon="send" onClick={() => setOpen(null)}>
+            <Button
+              size="lg"
+              className="flex-1"
+              icon="send"
+              onClick={() => {
+                const name = open?.name;
+                setOpen(null);
+                toast.show(`Follow-up sent to ${name}`);
+              }}
+            >
               Follow up
             </Button>
           </div>

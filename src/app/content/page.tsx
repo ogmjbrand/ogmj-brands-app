@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Icon } from "@/components/ui/Icon";
 import { Eyebrow, Counter } from "@/components/ui/Data";
 import { EnergyRule } from "@/components/ui/Energy";
+import { useToast } from "@/components/ui/Toast";
 import { reveal, stagger } from "@/lib/motion";
 import { CONTENT, BRAND, type ContentPiece } from "@/lib/data";
 
@@ -27,6 +28,7 @@ type Tab = "all" | "ready" | "drafts";
 export default function ContentPage() {
   const [tab, setTab] = useState<Tab>("all");
   const [open, setOpen] = useState<ContentPiece | null>(null);
+  const toast = useToast();
 
   const shown = useMemo(() => {
     if (tab === "ready") return CONTENT.filter((c) => c.ready);
@@ -178,7 +180,18 @@ export default function ContentPage() {
             <Button variant="outline" size="lg" className="flex-1" onClick={() => setOpen(null)}>
               Edit
             </Button>
-            <Button size="lg" className="flex-1" icon="send" onClick={() => setOpen(null)}>
+            <Button
+              size="lg"
+              className="flex-1"
+              icon="send"
+              onClick={() => {
+                const title = open?.title;
+                setOpen(null);
+                /* Names the piece and where it went — "Saved" would confirm
+                   nothing the user could not already see. */
+                toast.show(`“${title}” scheduled for Thursday, 18:00`);
+              }}
+            >
               Schedule
             </Button>
           </div>
