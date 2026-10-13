@@ -147,14 +147,40 @@ unfinished, so each has a rule:
   nothing from the design system: a boundary that depends on the thing that
   just failed is not a boundary.
 
-### 8. Empty states are the highest-intent moment in a product
+### 8. Performance, measured rather than asserted
+
+Under a 4× CPU throttle (mid-range phone), on the production build:
+
+| | `/` | `/studio` | `/analytics` | `/create` |
+| --- | --- | --- | --- | --- |
+| First paint | 436ms | 284ms | — | — |
+| LCP | 784ms | 232ms | 328ms | 984ms |
+| CLS | ≤0.008 | 0 | 0 | 0 |
+| Median frame while scrolling | 16.6ms | 16.3ms | 16.6ms | 15.2ms |
+| Frames below 30fps | 0 | 0 | 0 | 0 |
+
+JavaScript over the wire on the dashboard: **185kB** before load, plus
+17kB of route prefetch — Next trading a few kilobytes for instant
+navigation.
+
+Two things worth recording honestly. The dashboard shows ~790ms of long
+tasks under 4× throttle, with wide run-to-run variance (620–1100ms); a
+profile attributes it to browser parse, style and layout rather than to any
+application function, none of which exceeds 3% of samples. Tap latency
+spikes once to 250ms during initial hydration, then settles to 5–13ms. And
+`content-visibility: auto` on the below-fold sections was tried and
+**reverted**: measured across three runs it moved long-task time from 790ms
+to 767ms, which is inside the noise. A change that only looks principled is
+not worth the complexity.
+
+### 9. Empty states are the highest-intent moment in a product
 
 "No projects yet" is a dead end dressed as information. Every empty state
 here is composed like real content — eyebrow, editorial line, reason,
 action — and the pitch is specific to the surface. Thursday's empty calendar
 day names the ₦340,000/month it is worth, because the dashboard measured it.
 
-### 9. First run is part of the product
+### 10. First run is part of the product
 
 Opening OGMJ for the first time sends you to onboarding, not into someone
 else's finished dashboard. The check fails **open**: if `localStorage` throws
@@ -164,7 +190,7 @@ costs one skipped intro; guessing wrong the other way locks someone outside
 their own product with no way back. The account sheet (the avatar, top right)
 replays onboarding at any time.
 
-### 10. Luxury does not mean inaccessible
+### 11. Luxury does not mean inaccessible
 
 Verified, not asserted:
 
@@ -181,7 +207,7 @@ Verified, not asserted:
   server than on the client.
 - **Zoom is never disabled.**
 
-### 11. Nothing looks like a component library
+### 12. Nothing looks like a component library
 
 The icon set, the mark, the charts, the sheet, the segmented control, the
 buttons and the empty states are all drawn in this repo. Surfaces are
@@ -239,6 +265,7 @@ live only in comments is a style guide, and style guides rot.
 | `sheets` | every sheet anchors to the viewport (the `backdrop-filter` containing-block trap); focus is trapped and returned; scroll is locked and given back |
 | `routes` | every route on disk is **tracked by git**, every advertised route has a page, and no navigation tab leads to a 404 |
 | `states` | a save confirms by naming what happened and clears itself; a delete asks first, states the consequence, focuses *Keep it*, and is undoable back into its original position; both error boundaries exist and offer recovery |
+| `performance` | no route shifts its layout; LCP inside budget; frame rate holds while scrolling the two heaviest screens; the JS budget holds over the wire; ambient animation drives transform, never layout |
 
 Tests run against a production build, because static prerendering, hydration
 and compositor-driven animation all behave differently under the dev server's
