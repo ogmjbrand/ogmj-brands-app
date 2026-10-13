@@ -157,7 +157,7 @@ export default function StudioPage() {
                             className="absolute inset-0"
                             style={{
                               background:
-                                "linear-gradient(105deg,transparent 32%,rgba(16,185,129,0.28) 50%,transparent 68%)",
+"linear-gradient(105deg,transparent 32%,rgba(16,185,129,0.28) 50%,transparent 68%)",
                             }}
                             animate={{ x: ["-120%", "120%"] }}
                             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}

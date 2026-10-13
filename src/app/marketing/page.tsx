@@ -105,7 +105,7 @@ export default function MarketingPage() {
                             <span
                               className={`h-1.5 w-1.5 rounded-full shrink-0 ${
                                 isLive
-                                  ? "bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.9)]"
+                                  ? "bg-[#10b981] "
                                   : c.status === "scheduled"
                                     ? "bg-[#e0a355]"
                                     : "bg-[#7c8683]"

@@ -41,7 +41,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "OGMJ Brands — The AI business operating system",
   description:
-    "Create, build, launch, market, sell and grow. Your entire business, connected, in one place.",
+"Create, build, launch, market, sell and grow. Your entire business, connected, in one place.",
   applicationName: "OGMJ Brands",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "OGMJ" },
   formatDetection: { telephone: false },
@@ -54,7 +54,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   /* Zoom is never disabled. Accessibility is not negotiable, and a
      locked viewport is the most common accessibility failure in
-     "premium" mobile products. */
+"premium" mobile products. */
   maximumScale: 5,
   viewportFit: "cover",
 };
@@ -66,12 +66,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a
           href="#main"
           className="
-            sr-only-ogmj focus:not-sr-only
+ sr-only-ogmj focus:not-sr-only
             focus:fixed focus:top-3 focus:left-3 focus:z-[200]
             focus:h-11 focus:w-auto focus:px-4 focus:m-0 focus:clip-auto
             focus:grid focus:place-items-center focus:rounded-[10px]
             focus:bg-[#10b981] focus:text-[#03150f] focus:font-semibold focus:text-[13px]
-          "
+"
           style={{ clipPath: "none" }}
         >
           Skip to content

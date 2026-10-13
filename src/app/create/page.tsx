@@ -25,7 +25,7 @@ type Mode = "idle" | "thinking" | "done";
  * dark.
  *
  * The emotional target is not "it loaded". It is:
- *   "I just watched my business come to life."
+ *"I just watched my business come to life."
  */
 export default function CreatePage() {
   const [mode, setMode] = useState<Mode>("idle");
@@ -94,11 +94,11 @@ export default function CreatePage() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: easeOgmj, delay: 0.25 }}
           className="
-            sticky bottom-0 z-30 mt-auto
+ sticky bottom-0 z-30 mt-auto
             bg-[linear-gradient(180deg,rgba(5,5,5,0),rgba(5,6,6,0.9)_22%,rgba(5,6,6,0.98))]
             backdrop-blur-xl
             pb-[calc(76px+env(safe-area-inset-bottom))] lg:pb-8 pt-4
-          "
+"
         >
           <div className="gutter">
             {/* Suggestions sit ABOVE the field, not below it — below the
@@ -109,12 +109,12 @@ export default function CreatePage() {
                   key={s}
                   onClick={() => run(s)}
                   className="
-                    h-9 px-3.5 rounded-full text-[12px] whitespace-nowrap
+ h-9 px-3.5 rounded-full text-[12px] whitespace-nowrap
                     border border-[var(--color-rule)] bg-[rgba(255,255,255,0.035)]
                     text-[#a3adaa] transition-colors duration-200
                     hover:text-[#f4f6f5] hover:border-[rgba(16,185,129,0.4)]
                     active:bg-[rgba(16,185,129,0.12)]
-                  "
+"
                 >
                   {s}
                 </button>
@@ -127,13 +127,13 @@ export default function CreatePage() {
                 run(prompt);
               }}
               className="
-                relative flex items-end gap-2 p-2 rounded-[var(--radius-lg)]
+ relative flex items-end gap-2 p-2 rounded-[var(--radius-lg)]
                 border border-[rgba(255,255,255,0.13)]
                 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.015))]
                 focus-within:border-[rgba(16,185,129,0.5)]
-                focus-within:shadow-[0_0_0_1px_rgba(16,185,129,0.25),0_0_44px_-14px_rgba(16,185,129,0.7)]
+                focus-within:shadow-[0_0_0_1px_rgba(16,185,129,0.4)]
                 transition-all duration-300
-              "
+"
             >
               <label htmlFor="ogmj-prompt" className="sr-only-ogmj">
                 Describe what you want to build
@@ -158,10 +158,10 @@ export default function CreatePage() {
                 }}
                 placeholder="Describe what you want to build…"
                 className="
-                  flex-1 resize-none bg-transparent outline-none
+ flex-1 resize-none bg-transparent outline-none
                   px-3 py-2.5 text-[15px] leading-[1.45] text-[#f4f6f5]
                   max-h-[132px]
-                "
+"
                 /* 15px minimum: iOS Safari zooms the viewport on focus for
                    anything below 16px, which yanks the layout sideways.
                    16px on the actual field. */
@@ -174,12 +174,12 @@ export default function CreatePage() {
                 whileTap={reduce ? undefined : { scale: 0.92 }}
                 aria-label="Build this"
                 className="
-                  grid place-items-center h-11 w-11 shrink-0 rounded-[12px]
+ grid place-items-center h-11 w-11 shrink-0 rounded-[12px]
                   bg-[linear-gradient(160deg,#34d399,#10b981_55%,#0a7f59)] text-[#03150f]
                   shadow-[0_6px_20px_-8px_rgba(16,185,129,0.9)]
                   disabled:opacity-25 disabled:shadow-none
                   transition-opacity duration-200
-                "
+"
               >
                 <Icon name="send" size={19} strokeWidth={1.6} />
               </motion.button>
@@ -308,7 +308,7 @@ function ThinkingScene({ prompt, phaseIdx }: { prompt: string; phaseIdx: number 
                       animate={reduce ? {} : { scale: [1, 1.7], opacity: [0.7, 0] }}
                       transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
                     />
-                    <span className="relative h-[9px] w-[9px] rounded-full bg-[#10b981] shadow-[0_0_12px_rgba(16,185,129,1)]" />
+                    <span className="relative h-[9px] w-[9px] rounded-full bg-[#10b981] " />
                   </>
                 ) : (
                   <span className="h-[7px] w-[7px] rounded-full border border-[rgba(255,255,255,0.18)]" />
@@ -413,9 +413,9 @@ function DoneScene({ prompt, onReset }: { prompt: string; onReset: () => void })
               <Link
                 href={m.href}
                 className="
-                  group block surface rounded-[var(--radius-md)] p-4 h-full
+ group block surface rounded-[var(--radius-md)] p-4 h-full
                   transition-colors duration-300 hover:border-[rgba(16,185,129,0.35)]
-                "
+"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">

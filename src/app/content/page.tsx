@@ -125,10 +125,10 @@ export default function ContentPage() {
                       <button
                         onClick={() => setOpen(c)}
                         className="
-                          group w-full text-left flex items-start gap-3.5 min-h-[70px] p-4
+ group w-full text-left flex items-start gap-3.5 min-h-[70px] p-4
                           surface rounded-[var(--radius-md)]
                           transition-colors duration-300 hover:border-[rgba(16,185,129,0.32)]
-                        "
+"
                       >
                         <span className="min-w-0 flex-1">
                           <span className="flex items-center gap-2.5">

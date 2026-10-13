@@ -41,7 +41,7 @@ export default function ServicesPage() {
                   <EnergyRule live speed={3} />
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#d4af37] shadow-[0_0_9px_rgba(212,175,55,1)]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#d4af37] " />
                   <Eyebrow tone="gold">In progress</Eyebrow>
                 </div>
                 <p className="mt-3.5 text-[1.25rem] leading-tight display-tight text-[#f4f6f5]">

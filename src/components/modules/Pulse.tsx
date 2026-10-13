@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Counter, Delta, Sparkline, Eyebrow } from "@/components/ui/Data";
-import { reveal, stagger, pressableCard } from "@/lib/motion";
+import { reveal, stagger } from "@/lib/motion";
 import { METRICS } from "@/lib/data";
 
 /**
@@ -26,7 +26,7 @@ export function Pulse() {
         </div>
 
         <div className="mt-2.5 flex items-end justify-between gap-5">
-          <h2 className="text-[3rem] sm:text-[3.5rem] leading-[0.92] display-tight text-[#f4f6f5]">
+          <h2 className="text-[4.25rem] sm:text-[5.5rem] lg:text-[6rem] leading-[0.82] display-tight text-[#f4f6f5] -ml-[0.04em]">
             <Counter value={lead.value} prefix="₦" compact duration={1.7} />
           </h2>
         </div>
@@ -44,21 +44,21 @@ export function Pulse() {
       {/* ---- Supporting metrics: a snap row on mobile so all three stay
               one thumb-flick away without shrinking to unreadable tiles.
               At ≥768px there is room to lay them out flat. ---- */}
+      {/* One recessed panel divided by hairlines, not three floating cards.
+          These are three readings off the same instrument; three identical
+          bordered boxes said they were three unrelated things. */}
       <motion.ul
         variants={reveal}
-        className="snap-row mt-6 gap-3 px-5 md:px-10 xl:px-14 md:grid md:grid-cols-3 md:overflow-visible"
+        className="mt-7 mx-5 md:mx-10 xl:mx-14 plane-inset rounded-[var(--radius-md)] grid grid-cols-3 divide-x divide-[rgba(255,255,255,0.055)] overflow-hidden"
       >
         {rest.map((m) => (
-          <motion.li
-            key={m.key}
-            {...pressableCard}
-            className="
-              w-[168px] md:w-auto surface rounded-[var(--radius-md)] p-4
-              transition-colors duration-300 hover:border-[rgba(16,185,129,0.28)]
-            "
-          >
-            <Eyebrow>{m.label}</Eyebrow>
-            <p className="mt-2.5 text-[1.5rem] leading-none display-tight text-[#f4f6f5]">
+          <li key={m.key} className="px-3.5 py-4 min-w-0">
+            {/* Truncated rather than wrapped: a two-line label in one cell
+                pushes its figure out of alignment with its neighbours, and
+                three figures on three different baselines is the detail that
+                makes a panel look assembled rather than designed. */}
+            <Eyebrow className="truncate block">{m.short ?? m.label}</Eyebrow>
+            <p className="mt-3 text-[1.625rem] lg:text-[2rem] leading-none display-tight text-[#f4f6f5] truncate">
               <Counter
                 value={m.value}
                 suffix={m.suffix ?? ""}
@@ -66,13 +66,13 @@ export function Pulse() {
                 compact={m.key === "leads"}
               />
             </p>
-            <div className="mt-2.5 flex items-center justify-between gap-2">
+            <div className="mt-3">
               <Delta value={m.delta} />
-              <Sparkline data={m.series} accent={m.accent} height={22} area={false} className="w-[52px] shrink-0" />
             </div>
-          </motion.li>
+          </li>
         ))}
       </motion.ul>
+
     </motion.section>
   );
 }

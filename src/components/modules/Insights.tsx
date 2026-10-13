@@ -26,19 +26,19 @@ import { INSIGHTS, type Insight } from "@/lib/data";
 const TONE: Record<Insight["kind"], { label: string; dot: string; text: string; ring: string }> = {
   opportunity: {
     label: "Opportunity",
-    dot: "bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.9)]",
+    dot: "bg-[#10b981] ",
     text: "text-[#34d399]",
     ring: "hover:border-[rgba(16,185,129,0.3)]",
   },
   risk: {
     label: "Needs attention",
-    dot: "bg-[#e0a355] shadow-[0_0_8px_rgba(224,163,85,0.9)]",
+    dot: "bg-[#e0a355] ",
     text: "text-[#e0a355]",
     ring: "hover:border-[rgba(224,163,85,0.3)]",
   },
   win: {
     label: "Win",
-    dot: "bg-[#d4af37] shadow-[0_0_8px_rgba(212,175,55,0.9)]",
+    dot: "bg-[#d4af37] ",
     text: "text-[#d4af37]",
     ring: "hover:border-[rgba(212,175,55,0.3)]",
   },
@@ -94,11 +94,11 @@ function InsightRow({ item, index }: { item: Insight; index: number }) {
                 <Link
                   href={item.href}
                   className="
-                    mt-3.5 inline-flex items-center gap-1.5 h-[38px] px-3.5 rounded-[9px]
+ mt-3.5 inline-flex items-center gap-1.5 h-[38px] px-3.5 rounded-[9px]
                     text-[12px] font-semibold text-[#03150f]
                     bg-[linear-gradient(180deg,#34d399,#10b981)]
                     group/act
-                  "
+"
                 >
                   {item.action}
                   <Icon

@@ -72,9 +72,9 @@ export default function CrmPage() {
           <motion.section variants={reveal} aria-label="Pipeline stages">
             <div
               className="
-                snap-row gap-3 px-5 md:px-10 xl:px-14
+ snap-row gap-3 px-5 md:px-10 xl:px-14
                 lg:grid lg:grid-cols-4 lg:overflow-visible
-              "
+"
             >
               {byStage.map((col, ci) => (
                 <div
@@ -86,7 +86,7 @@ export default function CrmPage() {
                       <span
                         className={`h-1.5 w-1.5 rounded-full ${
                           col.stage === "Won"
-                            ? "bg-[#d4af37] shadow-[0_0_8px_rgba(212,175,55,0.9)]"
+                            ? "bg-[#d4af37] "
                             : "bg-[#10b981]"
                         }`}
                       />

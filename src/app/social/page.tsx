@@ -97,7 +97,7 @@ export default function SocialPage() {
                       <motion.span
                         layoutId="day-marker"
                         transition={springPanel}
-                        className="absolute inset-0 rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.6)] shadow-[0_0_24px_-8px_rgba(16,185,129,0.9)]"
+                        className="absolute inset-0 rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.6)] shadow-[0_8px_20px_-10px_rgba(0,0,0,0.95)]"
                       />
                     )}
                     <span

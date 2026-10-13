@@ -30,7 +30,7 @@
  *     stylistic preference but an accessibility problem.
  */
 const FEATHER =
-  "linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%)";
+"linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%)";
 
 export function Marquee({
   items,

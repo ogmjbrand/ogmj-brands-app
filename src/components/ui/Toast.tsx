@@ -115,12 +115,12 @@ function ToastViewport({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id:
   return (
     <div
       className="
-        fixed z-[var(--z-toast)] pointer-events-none
+ fixed z-[var(--z-toast)] pointer-events-none
         inset-x-0 bottom-0
         px-4 pb-[calc(76px+env(safe-area-inset-bottom))]
         lg:left-[212px] xl:left-[236px] lg:right-auto lg:max-w-[420px] lg:pb-7 lg:px-10
         flex flex-col gap-2
-      "
+"
     >
       <AnimatePresence initial={false}>
         {toasts.map((t) => {
@@ -137,12 +137,12 @@ function ToastViewport({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id:
               role={t.tone === "error" ? "alert" : "status"}
               aria-live={t.tone === "error" ? "assertive" : "polite"}
               className="
-                pointer-events-auto relative overflow-hidden
+ pointer-events-auto relative overflow-hidden
                 rounded-[var(--radius-md)] border border-[rgba(255,255,255,0.13)]
                 bg-[linear-gradient(180deg,rgba(25,29,27,0.98),rgba(11,13,12,0.98))]
                 backdrop-blur-xl
                 shadow-[0_18px_44px_-18px_rgba(0,0,0,0.95)]
-              "
+"
             >
               <div className="absolute inset-x-0 top-0 h-px" style={{ background: tone.rule }} />
 
@@ -270,12 +270,12 @@ export function ConfirmDelete({
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
             transition={{ ...springPanel, ease: easeOgmj }}
             className="
-              relative w-full lg:max-w-[420px] m-3 lg:m-0
+ relative w-full lg:max-w-[420px] m-3 lg:m-0
               rounded-[var(--radius-lg)] border border-[rgba(224,85,85,0.22)]
               bg-[linear-gradient(180deg,#191d1b,#0b0d0c)]
               p-5 shadow-[0_28px_70px_-24px_rgba(0,0,0,0.95)]
               pb-[max(20px,env(safe-area-inset-bottom))] lg:pb-5
-            "
+"
           >
             <div
               className="absolute inset-x-5 top-0 h-px"

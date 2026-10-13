@@ -59,8 +59,8 @@ function ModuleNode({ k }: { k: ModuleKey }) {
               border transition-all duration-300
               ${
                 gold
-                  ? "border-[rgba(212,175,55,0.28)] bg-[rgba(212,175,55,0.08)] text-[#d4af37] group-hover:shadow-[0_0_18px_-4px_rgba(212,175,55,0.6)]"
-                  : "border-[rgba(16,185,129,0.24)] bg-[rgba(16,185,129,0.07)] text-[#34d399] group-hover:shadow-[0_0_18px_-4px_rgba(16,185,129,0.6)]"
+                  ? "border-[rgba(212,175,55,0.28)] bg-[rgba(212,175,55,0.08)] text-[#d4af37] group-hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.9)]"
+                  : "border-[rgba(16,185,129,0.24)] bg-[rgba(16,185,129,0.07)] text-[#34d399] group-hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.9)]"
               }
             `}
           >
@@ -155,7 +155,7 @@ export function Journey() {
             className="absolute inset-y-0 left-0 w-[30%]"
             style={{
               background:
-                "linear-gradient(90deg,transparent,rgba(16,185,129,0.9),rgba(212,175,55,0.7),transparent)",
+"linear-gradient(90deg,transparent,rgba(16,185,129,0.9),rgba(212,175,55,0.7),transparent)",
             }}
             animate={reduce ? { opacity: 0.5 } : { x: ["-30%", "330%"] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: [0.65, 0, 0.35, 1] }}

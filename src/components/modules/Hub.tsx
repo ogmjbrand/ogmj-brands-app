@@ -82,8 +82,8 @@ export function Hub({
                           transition-shadow duration-300
                           ${
                             gold
-                              ? "border-[rgba(212,175,55,0.3)] bg-[rgba(212,175,55,0.08)] text-[#d4af37] group-hover:shadow-[0_0_26px_-6px_rgba(212,175,55,0.7)]"
-                              : "border-[rgba(16,185,129,0.26)] bg-[rgba(16,185,129,0.07)] text-[#34d399] group-hover:shadow-[0_0_26px_-6px_rgba(16,185,129,0.7)]"
+                              ? "border-[rgba(212,175,55,0.3)] bg-[rgba(212,175,55,0.08)] text-[#d4af37] group-hover:shadow-[0_6px_16px_-6px_rgba(0,0,0,0.9)]"
+                              : "border-[rgba(16,185,129,0.26)] bg-[rgba(16,185,129,0.07)] text-[#34d399] group-hover:shadow-[0_6px_16px_-6px_rgba(0,0,0,0.9)]"
                           }
                         `}
                       >

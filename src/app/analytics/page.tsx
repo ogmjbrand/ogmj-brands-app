@@ -15,9 +15,9 @@ import { METRICS } from "@/lib/data";
 type Range = "7d" | "30d" | "90d";
 
 const REVENUE = {
-  "7d": [22, 31, 27, 44, 38, 52, 61],
-  "30d": [18, 22, 19, 28, 34, 31, 45, 52, 48, 63, 71, 88],
-  "90d": [12, 15, 14, 21, 19, 26, 31, 29, 38, 44, 41, 55, 62, 58, 71, 88],
+"7d": [22, 31, 27, 44, 38, 52, 61],
+"30d": [18, 22, 19, 28, 34, 31, 45, 52, 48, 63, 71, 88],
+"90d": [12, 15, 14, 21, 19, 26, 31, 29, 38, 44, 41, 55, 62, 58, 71, 88],
 };
 
 /* Labels sit under the MIDDLE bar of each group, so a 12-bar month reads as
@@ -26,9 +26,9 @@ const REVENUE = {
    entirely, which made the "step change in week three" reading unverifiable
    against the chart it sat beneath. */
 const LABELS: Record<Range, string[]> = {
-  "7d": ["M", "T", "W", "T", "F", "S", "S"],
-  "30d": ["", "W1", "", "", "W2", "", "", "W3", "", "", "W4", ""],
-  "90d": ["", "Jun", "", "", "", "Jul", "", "", "", "Aug", "", "", "", "Sep", "", ""],
+"7d": ["M", "T", "W", "T", "F", "S", "S"],
+"30d": ["", "W1", "", "", "W2", "", "", "W3", "", "", "W4", ""],
+"90d": ["", "Jun", "", "", "", "Jul", "", "", "", "Aug", "", "", "", "Sep", "", ""],
 };
 
 const CHANNELS = [

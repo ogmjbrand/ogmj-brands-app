@@ -24,14 +24,14 @@ const VARIANTS: Record<Variant, string> = {
   /* Emerald is action. It reads as lit, not filled — the gradient plus the
      inner top highlight give it a physical, dimensional edge. */
   primary:
-    "text-[#03150f] font-semibold bg-[linear-gradient(180deg,#34d399,#10b981_55%,#0ea472)] shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_10px_30px_-12px_rgba(16,185,129,0.75)] hover:brightness-[1.07]",
+"text-[#03150f] font-semibold bg-[linear-gradient(180deg,#34d399,#10b981_55%,#0ea472)] shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_10px_30px_-12px_rgba(16,185,129,0.75)] hover:brightness-[1.07]",
   /* Gold is completion and status. Never for routine actions. */
   gold:
-    "text-[#1a1405] font-semibold bg-[linear-gradient(180deg,#f2e3ae,#d4af37_55%,#b4922a)] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_10px_30px_-12px_rgba(212,175,55,0.6)] hover:brightness-[1.06]",
+"text-[#1a1405] font-semibold bg-[linear-gradient(180deg,#f2e3ae,#d4af37_55%,#b4922a)] shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_10px_30px_-12px_rgba(212,175,55,0.6)] hover:brightness-[1.06]",
   outline:
-    "text-[#f4f6f5] font-medium border border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.028)] hover:bg-[rgba(255,255,255,0.06)] hover:border-[rgba(16,185,129,0.4)]",
+"text-[#f4f6f5] font-medium border border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.028)] hover:bg-[rgba(255,255,255,0.06)] hover:border-[rgba(16,185,129,0.4)]",
   quiet:
-    "text-[#a3adaa] font-medium bg-[rgba(255,255,255,0.045)] hover:bg-[rgba(255,255,255,0.08)] hover:text-[#f4f6f5]",
+"text-[#a3adaa] font-medium bg-[rgba(255,255,255,0.045)] hover:bg-[rgba(255,255,255,0.08)] hover:text-[#f4f6f5]",
   ghost: "text-[#a3adaa] font-medium hover:text-[#f4f6f5]",
 };
 
@@ -84,9 +84,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const reset = useCallback(() => setPull({ x: 0, y: 0 }), []);
 
   const cls = [
-    "relative inline-flex items-center justify-center select-none isolate",
-    "transition-[filter,background-color,border-color,color] duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-    "disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap",
+"relative inline-flex items-center justify-center select-none isolate",
+"transition-[filter,background-color,border-color,color] duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+"disabled:opacity-40 disabled:pointer-events-none whitespace-nowrap",
     SIZES[size],
     VARIANTS[variant],
     full ? "w-full" : "",

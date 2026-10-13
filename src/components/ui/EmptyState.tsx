@@ -50,7 +50,7 @@ export function EmptyState({
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(70% 60% at 50% 108%, rgba(16,185,129,0.16), transparent 68%)",
+"radial-gradient(70% 60% at 50% 108%, rgba(16,185,129,0.16), transparent 68%)",
         }}
         animate={reduce ? {} : { opacity: [0.55, 1, 0.55] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}

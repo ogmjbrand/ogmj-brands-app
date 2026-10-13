@@ -57,11 +57,11 @@ export function MobileNav() {
     <nav
       aria-label="Primary"
       className="
-        lg:hidden fixed bottom-0 inset-x-0 z-[var(--z-nav)]
+ lg:hidden fixed bottom-0 inset-x-0 z-[var(--z-nav)]
         pb-[env(safe-area-inset-bottom)]
         bg-[rgba(6,8,7,0.82)] backdrop-blur-2xl
         border-t border-[var(--color-rule)]
-      "
+"
     >
       {/* The energy line across the top of the bar. It is the same light
           that runs through the rest of the product — the bar is part of
@@ -70,7 +70,7 @@ export function MobileNav() {
         className="absolute -top-px inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg,transparent 6%,rgba(16,185,129,0.4) 34%,rgba(212,175,55,0.32) 62%,transparent 94%)",
+"linear-gradient(90deg,transparent 6%,rgba(16,185,129,0.4) 34%,rgba(212,175,55,0.32) 62%,transparent 94%)",
         }}
       />
 
@@ -92,12 +92,12 @@ export function MobileNav() {
                     aria-label="AI Command Centre"
                     aria-current={on ? "page" : undefined}
                     className="
-                      relative -mt-6 grid place-items-center
+ relative -mt-6 grid place-items-center
                       h-[54px] w-[54px] rounded-[18px]
                       bg-[linear-gradient(160deg,#34d399,#10b981_52%,#0a7f59)]
                       text-[#03150f]
-                      shadow-[0_0_0_5px_rgba(6,8,7,0.95),0_10px_30px_-8px_rgba(16,185,129,0.85)]
-                    "
+                      shadow-[0_0_0_5px_#080808,0_8px_18px_-6px_rgba(0,0,0,0.95)]
+"
                   >
                     {/* Rendered unconditionally and hidden via CSS for
                         reduced-motion users: gating it on the JS preference
@@ -130,7 +130,7 @@ export function MobileNav() {
                   <motion.span
                     layoutId="nav-marker"
                     transition={springPanel}
-                    className="absolute top-0 h-[2px] w-7 rounded-full bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.9)]"
+                    className="absolute top-0 h-[2px] w-7 rounded-full bg-[#10b981] "
                   />
                 )}
                 <motion.span
@@ -168,10 +168,10 @@ export function DesktopRail() {
     <nav
       aria-label="Primary"
       className="
-        hidden lg:flex fixed left-0 inset-y-0 z-[var(--z-nav)] w-[212px] xl:w-[236px]
+ hidden lg:flex fixed left-0 inset-y-0 z-[var(--z-nav)] w-[212px] xl:w-[236px]
         flex-col border-r border-[var(--color-rule)]
         bg-[rgba(7,9,8,0.6)] backdrop-blur-xl
-      "
+"
     >
       <Link href="/" className="flex items-center gap-2.5 h-[68px] px-5 shrink-0 group">
         <OgmjMark size={22} />
@@ -191,7 +191,7 @@ export function DesktopRail() {
           className="absolute left-[27px] top-[26px] bottom-[26px] w-px"
           style={{
             background:
-              "linear-gradient(180deg,rgba(16,185,129,0.42),rgba(16,185,129,0.16) 60%,rgba(212,175,55,0.34))",
+"linear-gradient(180deg,rgba(16,185,129,0.42),rgba(16,185,129,0.16) 60%,rgba(212,175,55,0.34))",
           }}
           aria-hidden="true"
         />
@@ -223,7 +223,7 @@ export function DesktopRail() {
                     border transition-all duration-300
                     ${
                       on
-                        ? "border-[#10b981] bg-[#10b981] shadow-[0_0_12px_rgba(16,185,129,0.8)]"
+                        ? "border-[#10b981] bg-[#10b981] "
                         : "border-[rgba(255,255,255,0.18)] bg-[#090a0a]"
                     }
                   `}
@@ -242,14 +242,14 @@ export function DesktopRail() {
         <Link
           href="/services"
           className="
-            flex items-center gap-3 h-[42px] px-3 rounded-[10px]
+ flex items-center gap-3 h-[42px] px-3 rounded-[10px]
             text-[#8b9491] hover:text-[#d4af37] transition-colors duration-200
             border border-transparent hover:border-[rgba(212,175,55,0.28)]
-          "
+"
         >
           <Icon name="services" size={17} />
           <span className="text-[13px] font-medium">Services</span>
-          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#d4af37] shadow-[0_0_8px_rgba(212,175,55,0.9)]" />
+          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#d4af37] " />
         </Link>
       </div>
     </nav>

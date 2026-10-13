@@ -156,20 +156,20 @@ export function Sheet({
             dragElastic={{ top: 0, bottom: 0.55 }}
             onDragEnd={onDragEnd}
             className="
-              relative w-full max-h-[90dvh] flex flex-col outline-none
+ relative w-full max-h-[90dvh] flex flex-col outline-none
               rounded-t-[var(--radius-sheet)] lg:rounded-none lg:rounded-l-[var(--radius-xl)]
               lg:max-w-[440px] lg:max-h-none lg:h-full
               border-t border-x lg:border-x-0 lg:border-l border-[rgba(255,255,255,0.12)]
               bg-[linear-gradient(180deg,#161a18,#0b0d0c_38%)]
               shadow-[0_-28px_70px_-24px_rgba(0,0,0,0.95)]
-            "
+"
           >
             {/* Emerald hairline across the lip — the sheet arrives lit. */}
             <div
               className="absolute inset-x-6 top-0 h-px lg:hidden"
               style={{
                 background:
-                  "linear-gradient(90deg,transparent,rgba(16,185,129,0.55),rgba(212,175,55,0.4),transparent)",
+"linear-gradient(90deg,transparent,rgba(16,185,129,0.55),rgba(212,175,55,0.4),transparent)",
               }}
             />
 
@@ -195,10 +195,10 @@ export function Sheet({
             {footer && (
               <footer
                 className="
-                  shrink-0 px-5 pt-4 border-t border-[var(--color-rule)]
+ shrink-0 px-5 pt-4 border-t border-[var(--color-rule)]
                   bg-[rgba(11,13,12,0.9)] backdrop-blur-xl
                   pb-[max(20px,env(safe-area-inset-bottom))]
-                "
+"
               >
                 {footer}
               </footer>
@@ -242,6 +242,11 @@ export function Segmented<T extends string>({
             role="tab"
             aria-selected={on}
             onClick={() => onChange(o.value)}
+            /* The active pill is an absolutely-positioned sibling, so this
+               label's background cannot be read from its own ancestors. The
+               contrast suite is told so explicitly and checks the pair
+               against measured values instead of guessing. */
+            data-layered-bg={on ? "" : undefined}
             className={`
               relative flex-1 min-w-max h-[36px] px-3.5 rounded-[8px] text-[12px] font-medium
               transition-colors duration-200 whitespace-nowrap
@@ -252,7 +257,7 @@ export function Segmented<T extends string>({
               <motion.span
                 layoutId={`seg-${id}`}
                 transition={springPanel}
-                className="absolute inset-0 rounded-[8px] bg-[linear-gradient(180deg,#34d399,#10b981)]"
+                className="absolute inset-0 rounded-[8px] bg-[#10b981]"
               />
             )}
             <span className="relative z-10">{o.label}</span>

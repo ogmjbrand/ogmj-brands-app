@@ -159,6 +159,8 @@ export const BRAND = {
 export interface Metric {
   key: string;
   label: string;
+  /** Used where the full label will not fit on one line. */
+  short?: string;
   value: number;
   prefix?: string;
   suffix?: string;
@@ -198,6 +200,7 @@ export const METRICS: Metric[] = [
   {
     key: "health",
     label: "Brand Health",
+    short: "Health",
     value: 87,
     suffix: "",
     delta: 4.0,

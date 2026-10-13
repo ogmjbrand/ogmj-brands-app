@@ -65,7 +65,7 @@ export function EnergySpine({ className = "" }: { className?: string }) {
           scaleY: reduce ? 1 : progress,
           height: "100%",
           background:
-            "linear-gradient(180deg, rgba(16,185,129,0) 0%, rgba(16,185,129,0.85) 12%, rgba(16,185,129,0.5) 60%, rgba(212,175,55,0.7) 100%)",
+"linear-gradient(180deg, rgba(16,185,129,0) 0%, rgba(16,185,129,0.85) 12%, rgba(16,185,129,0.5) 60%, rgba(212,175,55,0.7) 100%)",
         }}
       />
     </div>
@@ -73,8 +73,21 @@ export function EnergySpine({ className = "" }: { className?: string }) {
 }
 
 /**
- * The AI presence. Not a spinner — a body of light that breathes when idle
- * and accelerates when thinking. State is legible from across a room.
+ * THE AI PRESENCE
+ *
+ * This was a glowing emerald sphere with a pulsing aura and an orbiting arc.
+ * It was also, honestly, the most generated-looking object in the product —
+ * a neon blob breathing on black is the house style of every AI interface
+ * shipped in the last two years.
+ *
+ * What replaces it is the OGMJ mark itself, drawn rather than lit: a thin
+ * rotated square whose four edges STROKE THEMSELVES IN while the system
+ * thinks, with a single small aperture at the centre. The information is the
+ * same — idle, working, finished — but it is carried by line, geometry and
+ * drawing speed instead of by brightness.
+ *
+ * Drawing is also more honest about what is happening: a path completing
+ * reads as work being done, where a pulse reads as a thing merely existing.
  */
 export function EnergyOrb({
   size = 88,
@@ -88,6 +101,7 @@ export function EnergyOrb({
   const reduce = useReducedMotion();
   const thinking = state === "thinking";
   const done = state === "done";
+  const stroke = done ? "#d4af37" : "#10b981";
 
   return (
     <div
@@ -95,63 +109,63 @@ export function EnergyOrb({
       style={{ width: size, height: size }}
       aria-hidden="true"
     >
-      {/* Outer aura — the field the orb sits in */}
-      <motion.div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: done
-            ? "radial-gradient(circle, rgba(212,175,55,0.30), transparent 68%)"
-            : "radial-gradient(circle, rgba(16,185,129,0.28), transparent 68%)",
-        }}
-        animate={reduce ? {} : { scale: thinking ? [1, 1.16, 1] : [1, 1.06, 1], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: thinking ? 1.5 : 3.6, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <svg viewBox="0 0 64 64" className="w-full h-full overflow-visible">
+        {/* The unlit figure: always present, so the mark has a body rather
+            than materialising out of nothing. */}
+        <path
+          d="M32 6 58 32 32 58 6 32 32 6Z"
+          fill="none"
+          stroke="rgba(255,255,255,0.1)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
 
-      {/* Orbiting ring — only present while thinking. Its rotation is the
-          only literal "loading" signal in the product, and it never appears
-          alone: it is always paired with named, human-readable progress. */}
-      {thinking && !reduce && (
-        <motion.svg
-          className="absolute inset-0"
-          viewBox="0 0 100 100"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r="40"
-            fill="none"
-            stroke="url(#orb-arc)"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeDasharray="52 200"
-          />
-          <defs>
-            <linearGradient id="orb-arc" x1="0" y1="0" x2="100" y2="100">
-              <stop stopColor="#34D399" />
-              <stop offset="1" stopColor="#D4AF37" />
-            </linearGradient>
-          </defs>
-        </motion.svg>
-      )}
+        {/* The lit figure, drawn by stroke-dash. While thinking it draws and
+            erases continuously; at rest it simply sits complete. */}
+        <motion.path
+          d="M32 6 58 32 32 58 6 32 32 6Z"
+          fill="none"
+          stroke={stroke}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          initial={false}
+          animate={
+            reduce
+              ? { pathLength: thinking ? 0.6 : 1, opacity: 1 }
+              : thinking
+                ? { pathLength: [0, 1, 1], opacity: [1, 1, 0.15] }
+                : { pathLength: 1, opacity: 1 }
+          }
+          transition={
+            reduce
+              ? { duration: 0 }
+              : thinking
+                ? { duration: 2.2, repeat: Infinity, ease: [0.65, 0, 0.35, 1], times: [0, 0.7, 1] }
+                : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+          }
+        />
 
-      {/* Core */}
-      <motion.div
-        className="relative rounded-full"
-        style={{
-          width: size * 0.42,
-          height: size * 0.42,
-          background: done
-            ? "radial-gradient(circle at 32% 28%, #f2e3ae, #d4af37 52%, #8a6f1f)"
-            : "radial-gradient(circle at 32% 28%, #a7f3d0, #10b981 52%, #05553c)",
-          boxShadow: done
-            ? "0 0 26px -3px rgba(212,175,55,0.85)"
-            : "0 0 26px -3px rgba(16,185,129,0.85)",
-        }}
-        animate={reduce ? {} : { scale: thinking ? [1, 1.1, 1] : [1, 1.04, 1] }}
-        transition={{ duration: thinking ? 1.1 : 3.4, repeat: Infinity, ease: "easeInOut" }}
-      />
+        {/* Tick marks on the four axes — the mark's own detail, at a weight
+            that only resolves up close. */}
+        <path
+          d="M32 14v5M32 45v5M14 32h5M45 32h5"
+          stroke={stroke}
+          strokeWidth="1"
+          strokeLinecap="round"
+          opacity={done ? 0.9 : 0.45}
+        />
+
+        {/* The aperture. Solid when finished, hollow while working. */}
+        <circle
+          cx="32"
+          cy="32"
+          r="3.2"
+          fill={done ? stroke : "none"}
+          stroke={stroke}
+          strokeWidth="1"
+        />
+      </svg>
     </div>
   );
 }
@@ -177,13 +191,13 @@ export function EnergyLink({ live = true, vertical = false }: { live?: boolean; 
                   inset: "0 0 auto 0",
                   height: "42%",
                   background:
-                    "linear-gradient(180deg, transparent, rgba(16,185,129,0.95), rgba(212,175,55,0.7), transparent)",
+"linear-gradient(180deg, transparent, rgba(16,185,129,0.95), rgba(212,175,55,0.7), transparent)",
                 }
               : {
                   inset: "0 auto 0 0",
                   width: "42%",
                   background:
-                    "linear-gradient(90deg, transparent, rgba(16,185,129,0.95), rgba(212,175,55,0.7), transparent)",
+"linear-gradient(90deg, transparent, rgba(16,185,129,0.95), rgba(212,175,55,0.7), transparent)",
                 }
           }
           animate={

@@ -73,7 +73,7 @@ export default function Home() {
 
           <motion.h1
             variants={reveal}
-            className="mt-4 text-[var(--text-h1)] lg:text-[2.5rem] leading-[1.05] display-tight text-[#f4f6f5]"
+            className="mt-5 text-[13px] lg:text-[14px] text-[#8b9491]"
           >
             {clock ? `${clock.greet}, Milly.` : "\u00A0"}
           </motion.h1>
@@ -83,7 +83,7 @@ export default function Home() {
               place OGMJ speaks in the first person about the business. */}
           <motion.p
             variants={reveal}
-            className="mt-2.5 editorial text-[1.5rem] lg:text-[2rem] leading-[1.15] text-gradient-em max-w-[18ch]"
+            className="mt-2.5 editorial text-[2.25rem] lg:text-[3.25rem] leading-[1.02] text-[#f4f6f5] max-w-[18ch]"
           >
             {BRAND.name} is accelerating.
           </motion.p>
@@ -164,10 +164,10 @@ export default function Home() {
             <Link
               href="/create"
               className="
-                group relative block overflow-hidden rounded-[var(--radius-lg)] p-5 lg:p-7
+ group relative block overflow-hidden rounded-[var(--radius-lg)] p-5 lg:p-7
                 border border-[rgba(16,185,129,0.22)]
                 bg-[linear-gradient(150deg,rgba(16,185,129,0.11),rgba(212,175,55,0.05)_58%,rgba(255,255,255,0.015))]
-              "
+"
             >
               <div className="absolute inset-x-0 top-0">
                 <EnergyRule live speed={3.4} />

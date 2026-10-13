@@ -36,9 +36,9 @@ export function TopBar() {
     <motion.header
       style={{ backgroundColor: bg, borderBottomColor: border, backdropFilter: blur }}
       className="
-        lg:hidden sticky top-0 z-50 border-b
+ lg:hidden sticky top-0 z-50 border-b
         pt-[max(10px,env(safe-area-inset-top))] pb-2.5
-      "
+"
     >
       <div className="gutter flex items-center gap-3">
         <OgmjMark size={22} />
@@ -49,7 +49,7 @@ export function TopBar() {
           href="/brand"
           className="flex items-center gap-2 h-9 pl-2.5 pr-3 rounded-full border border-[var(--color-rule)] bg-[rgba(255,255,255,0.035)] min-w-0"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#d4af37] shadow-[0_0_7px_rgba(212,175,55,0.9)] shrink-0" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#d4af37] shrink-0" />
           <span className="text-[12px] font-medium text-[#f4f6f5] truncate">{BRAND.name}</span>
           <Icon name="chevron" size={12} className="text-[#8b9491] rotate-90 shrink-0" />
         </Link>
@@ -106,7 +106,7 @@ export function TopBar() {
               onClick={() => setAccount(false)}
               className="mt-3 flex items-center gap-3.5 p-4 rounded-[var(--radius-md)] surface transition-colors duration-300 hover:border-[rgba(212,175,55,0.35)]"
             >
-              <span className="h-2 w-2 rounded-full bg-[#d4af37] shadow-[0_0_9px_rgba(212,175,55,0.9)] shrink-0" />
+              <span className="h-2 w-2 rounded-full bg-[#d4af37] shrink-0" />
               <span className="min-w-0 flex-1">
                 <span className="block text-[14px] font-semibold text-[#f4f6f5]">{BRAND.name}</span>
                 <span className="block mt-1 text-[11.5px] text-[#8b9491]">{BRAND.category}</span>

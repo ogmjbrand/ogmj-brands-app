@@ -68,7 +68,7 @@ export default function WebsitePage() {
             <div className="flex items-center gap-3 p-3.5 rounded-[var(--radius-md)] surface">
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-60 animate-ping motion-reduce:hidden" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#10b981] shadow-[0_0_9px_rgba(16,185,129,1)]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#10b981] " />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="text-[13px] font-medium text-[#f4f6f5] truncate">aurelia.co</p>
@@ -144,10 +144,10 @@ export default function WebsitePage() {
                 <li key={s.id}>
                   <button
                     className="
-                      group w-full text-left flex items-center gap-3.5 min-h-[62px] px-4 py-3
+ group w-full text-left flex items-center gap-3.5 min-h-[62px] px-4 py-3
                       surface rounded-[var(--radius-md)]
                       transition-colors duration-300 hover:border-[rgba(16,185,129,0.32)]
-                    "
+"
                   >
                     <span
                       className={`

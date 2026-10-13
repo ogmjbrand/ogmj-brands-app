@@ -109,7 +109,7 @@ export default function Onboarding() {
             </motion.div>
             <motion.h1
               variants={reveal}
-              className="mt-5 editorial text-[2.5rem] sm:text-[3rem] lg:text-[3.75rem] leading-[1.02] text-gradient-em max-w-[13ch]"
+              className="mt-5 editorial text-[3rem] sm:text-[3.5rem] lg:text-[4.5rem] leading-[0.94] text-[#f4f6f5] max-w-[13ch]"
             >
               Let&apos;s build something remarkable.
             </motion.h1>
@@ -177,7 +177,7 @@ export default function Onboarding() {
                         <motion.span
                           layoutId="onb-pick"
                           transition={springPanel}
-                          className="absolute inset-0 rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.6)] shadow-[0_0_30px_-8px_rgba(16,185,129,0.8)]"
+                          className="absolute inset-0 rounded-[var(--radius-md)] border border-[rgba(16,185,129,0.6)] shadow-[0_8px_20px_-10px_rgba(0,0,0,0.95)]"
                         />
                       )}
                       <span className="relative block text-[13.5px] font-semibold text-[#f4f6f5] leading-tight">
@@ -299,7 +299,7 @@ export default function Onboarding() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: easeOgmj, delay: 0.15 }}
-              className="mt-5 editorial text-[2.25rem] lg:text-[3rem] leading-[1.05] text-gradient-em max-w-[15ch]"
+              className="mt-5 editorial text-[2.75rem] lg:text-[3.75rem] leading-[0.98] text-[#f4f6f5] max-w-[15ch]"
             >
               Built for {chosen?.label.toLowerCase() ?? "your business"}.
             </motion.h1>
@@ -310,8 +310,8 @@ export default function Onboarding() {
               {[
                 `Modules ordered around ${aims.length} goal${aims.length === 1 ? "" : "s"}`,
                 `${chosen?.label ?? "Business"} benchmarks loaded`,
-                "Brand voice and palette primed",
-                "Command centre ready",
+"Brand voice and palette primed",
+"Command centre ready",
               ].map((line, i) => (
                 <motion.li
                   key={line}
